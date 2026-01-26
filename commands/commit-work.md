@@ -14,19 +14,19 @@ Make commits that are easy to review and safe to ship:
 ## Current State
 
 ### Git Status
-```
+``````
 !`git status --short`
-```
+``````
 
 ### Unstaged Changes
-```
-!`git diff --stat`
-```
+``````
+!`git diff`
+``````
 
 ### Staged Changes
-```
-!`git diff --staged --stat`
-```
+``````
+!`git diff --staged`
+``````
 
 ## Workflow Checklist
 

@@ -4,18 +4,25 @@ This file provides guidance to AI coding agents (Claude Code, OpenCode, Cursor, 
 
 ## Repository Overview
 
-A collection of skills for AI working. Skills are packaged instructions and scripts that extend AI's capabilities.
+A collection of AI toolkits that extend agent capabilities, including:
 
-## Creating a New Skill
+- **Skills** - Packaged instructions and scripts that can be distributed and installed
+- **Commands** - Command templates and prompt definitions for agent execution
+
+## Skills
+
+Skills are packaged, distributable units that extend AI agent capabilities. They follow the [Agent Skills](https://agentskills.io/) format and can be installed via `npx skills add <owner/repo>`.
 
 ### Directory Structure
 
 ```
 skills/
   {skill-name}/           # kebab-case directory name
-    SKILL.md              # Required: skill definition
-    scripts/              # Required: executable scripts
+    SKILL.md              # Required: skill definition with frontmatter
+    scripts/              # Optional: executable scripts
       {script-name}.sh    # Bash scripts (preferred)
+    references/           # Optional: supporting documentation
+      {doc-name}.md       # Reference materials
 ```
 
 ### Naming Conventions
@@ -52,15 +59,15 @@ bash ~/.agents/skills/{skill-name}/scripts/{script}.sh [args]
 **Examples:**
 {Show 2-3 common usage patterns}
 
-## Output
+### Output
 
 {Show example output users will see}
 
-## Present Results to User
+### Present Results to User
 
 {Template for how Claude should format results when presenting to users}
 
-## Troubleshooting
+### Troubleshooting
 
 {Common issues and solutions, especially network/permissions errors}
 
@@ -86,3 +93,65 @@ Skills are loaded on-demand — only the skill name and description are loaded a
 ```
 
 Add the skill to project knowledge or paste SKILL.md contents into the conversation.
+
+## Commands
+
+Commands are executable prompt templates that guide AI agents to perform specific tasks. Unlike skills (which are distributed units), commands are standalone Markdown files that define task instructions.
+
+### Directory Structure
+
+```
+commands/
+  {command-name}.md      # Command definition with YAML frontmatter
+  references/           # Optional: supporting documentation
+    {doc-name}.md       # Reference materials
+```
+
+### Command Format
+
+```markdown
+---
+description: {Brief description of when to use this command}
+model: {model-identifier (optional)}
+---
+
+{Command instructions and workflow steps}
+```
+
+### Frontmatter Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `description` | string | Yes | One-line description for agent to understand when to use this command |
+| `model` | string | No | Specific model to use for this command |
+
+### Best Practices
+
+- **Triggers matter**: Include specific phrases users might say in the description (e.g., "Commit my changes", "Check logs")
+- **Be specific**: Clear instructions produce better results
+- **Action-oriented**: Focus on what the agent should do, not abstract concepts
+- **Examples matter**: Include example inputs/outputs where applicable
+
+### Example
+
+```markdown
+---
+description: Create conventional commit with Chinese description
+model: zhipuai-coding-plan/glm-4.7
+---
+
+You are an experienced software engineer responsible for creating Git commit messages...
+
+## Workflow
+1. Inspect changes
+2. Stage files
+3. Write commit message
+4. Execute commit
+```
+
+## Usage Summary
+
+| Type | When to Use | Key Characteristic |
+|------|-------------|-------------------|
+| **Skills** | Reusable capabilities that should be distributed across projects | Installable via `npx skills add <owner/repo>`, include scripts |
+| **Commands** | One-off or project-specific task instructions | Simple markdown files, not distributed |
