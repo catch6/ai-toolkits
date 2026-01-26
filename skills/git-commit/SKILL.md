@@ -1,9 +1,9 @@
 ---
-description: Create Git Commits Following Conventional Commits Specification.
-model: zhipuai-coding-plan/glm-4.7
+name: git-commit
+description: Create Git Commits Following Conventional Commits Specification. Use when the user asks to commit, craft a commit message, stage changes, or split work into multiple commits.
 ---
 
-You are an experienced software engineer responsible for creating high-quality git commit messages following Conventional Commits specification.
+# Git Commit
 
 ## Goal
 Make commits that are easy to review and safe to ship:
@@ -11,30 +11,16 @@ Make commits that are easy to review and safe to ship:
 - commits are logically scoped (split when needed)
 - commit messages describe what changed and why
 
-## Current State
-
-### Git Status
-``````
-!`git status --short`
-``````
-
-### Unstaged Changes
-``````
-!`git diff`
-``````
-
-### Staged Changes
-``````
-!`git diff --staged`
-``````
-
 ## Workflow Checklist
-
 1. Inspect the working tree before staging.
-  Use the output above to understand what needs to be committed.
+   - `git status`
+   - `git diff` (unstaged)
+     - If many changes: `git diff --stat`
+   - `git diff --staged` (unstaged)
+     - If many changes: `git diff --staged --stat`
 2. Decide commit boundaries (split if needed).
-  - Split by: feature vs refactor, backend vs frontend, formatting vs logic, tests vs prod code, dependency bumps vs behavior changes.
-  - If changes are mixed in one file, plan to use patch staging.
+   - Split by: feature vs refactor, backend vs frontend, formatting vs logic, tests vs prod code, dependency bumps vs behavior changes.
+   - If changes are mixed in one file, plan to use patch staging.
 3. Stage only what belongs in the next commit.
    - Prefer patch staging for mixed changes: `git add -p`
    - To unstage a hunk/file: `git restore --staged -p` or `git restore --staged <path>`
@@ -48,7 +34,7 @@ Make commits that are easy to review and safe to ship:
    - If you cannot describe it cleanly, the commit is probably too big or mixed; go back to step 2.
 6. Commit directly without user confirmation.
    - Use Conventional Commits (required):
-     - `type(scope): <summary>`(type and scope MUST be English lowercase,summary MUST be Chinese, no period)
+     - `type(scope): <summary>`(type and scope MUST be English lowercase, summary MUST be Chinese, no period)
      - blank line
      - body (MUST be Chinese, describe what/why, Use imperative mood for summary, MUST be `-` prefix markdown list format, no period)
      - footer (MUST be Chinese, for BREAKING CHANGE) if needed
@@ -81,5 +67,5 @@ BREAKING CHANGE: 移除旧版session认证，需要重新登录
 
 ## Deliverable
 Provide:
-  - the final commit message(s)
-  - a short summary per commit (what/why)
+- the final commit message(s)
+- a short summary per commit (what/why)
