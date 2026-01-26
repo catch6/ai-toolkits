@@ -20,12 +20,12 @@ Make commits that are easy to review and safe to ship:
 
 ### Unstaged Changes
 ```
-!`git diff`
+!`git diff --stat`
 ```
 
 ### Staged Changes
 ```
-!`git diff --staged`
+!`git diff --staged --stat`
 ```
 
 ## Workflow Checklist
