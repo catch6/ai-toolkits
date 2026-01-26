@@ -39,7 +39,6 @@ Make commits that are easy to review and safe to ship:
    - Prefer patch staging for mixed changes: `git add -p`
    - To unstage a hunk/file: `git restore --staged -p` or `git restore --staged <path>`
 4. Review what will actually be committed.
-   - `git diff --staged`
    - Sanity checks:
      - no secrets or tokens
      - no accidental debug logging
