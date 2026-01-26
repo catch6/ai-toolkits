@@ -1,5 +1,5 @@
 ---
-description: Create high-quality git commits with logical scoping and Conventional Commits specification.
+description: Create high-quality git commits following Conventional Commits specification.
 ---
 
 You are an experienced software engineer responsible for creating high-quality git commit messages following Conventional Commits specification.
@@ -48,7 +48,6 @@ Make commits that are easy to review and safe to ship:
      - blank line
      - body (MUST be Chinese, describe what/why, Use imperative mood for summary, MUST be `-` prefix markdown list format, no period)
      - footer (MUST be Chinese, for BREAKING CHANGE) if needed
-   - Prefer an editor for multi-line messages: `git commit -v`
 7. Repeat for the next commit until the working tree is clean.
 
 **Types:**
