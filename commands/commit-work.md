@@ -1,10 +1,9 @@
 ---
-description: Create high-quality git commits following Conventional Commits specification.
+description: Create Git Commits Following Conventional Commits Specification.
+model: zhipuai-coding-plan/glm-4.7
 ---
 
 You are an experienced software engineer responsible for creating high-quality git commit messages following Conventional Commits specification.
-
-# Commit Work
 
 ## Goal
 Make commits that are easy to review and safe to ship:
@@ -15,13 +14,19 @@ Make commits that are easy to review and safe to ship:
 ## Current State
 
 ### Git Status
+```
 !`git status --short`
+```
 
 ### Unstaged Changes
-!`git diff --stat`
+```
+!`git diff`
+```
 
 ### Staged Changes
-!`git diff --cached --stat`
+```
+!`git diff --staged`
+```
 
 ## Workflow Checklist
 
@@ -34,7 +39,6 @@ Make commits that are easy to review and safe to ship:
    - Prefer patch staging for mixed changes: `git add -p`
    - To unstage a hunk/file: `git restore --staged -p` or `git restore --staged <path>`
 4. Review what will actually be committed.
-   - `git diff --cached`
    - Sanity checks:
      - no secrets or tokens
      - no accidental debug logging
