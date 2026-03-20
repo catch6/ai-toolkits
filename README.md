@@ -1,43 +1,36 @@
 # AI Toolkits
 
-A collection of skills for AI agents. Skills are packaged instructions and scripts that extend agent capabilities.
+面向 AI Agent 的技能集合，遵循 [Agent Skills](https://agentskills.io/) 格式。
 
-Skills follow the [Agent Skills](https://agentskills.io/) format.
+## 技能（Skills）
 
-## Available Skills
+技能是可跨项目安装的可复用指令集，通过 `npx skills` 安装到目标项目。
 
 ### git-commit
 
-Create Git commits following the Conventional Commits specification. Makes commits easy to review and safe to ship.
+按照 Conventional Commits 规范创建 Git 提交。
 
-**Install:**
 ```sh
 npx skills add https://github.com/catch6/ai-toolkits --skill git-commit
 ```
 
-**Use when:**
-- "Commit my changes"
-- "Craft a commit message"
-- "Stage changes"
-- "Split work into multiple commits"
+触发时机："提交改动"、"暂存文件"、"拆分成多个提交"
 
-**Features:**
-- Inspects working tree before staging (`git status`, `git diff`)
-- Splits commits by logical boundaries (feature/refactor, backend/frontend, tests/prod)
-- Supports patch staging for mixed changes (`git add -p`)
-- Enforces Conventional Commits format with Chinese descriptions
-- Sanity checks for secrets, debug logging, and formatting churn
+- 提交前检查工作区状态
+- 按逻辑边界自动拆分提交（功能/重构、前端/后端、测试/生产代码）
+- 强制使用 `type(scope): 中文描述` 格式
+- 防止提交密钥、强制推送和跳过 hook
 
-## Available Commands
+### translate
 
-### commit
+自动检测语言并翻译（中文↔英文，其他语言→中文），保留格式、代码和语气风格。
 
-Create Git commits with Conventional Commits format. This is a command template that pre-fills git status and diff context.
+```sh
+npx skills add https://github.com/catch6/ai-toolkits --skill translate
+```
 
-**Use when:**
-- Quick commit without full skill workflow
-- Agent needs pre-filled git context
+触发时机："翻译这段文字"、"把这个改成英文"、"translate this"
 
-## License
+## 开源协议
 
 MIT
