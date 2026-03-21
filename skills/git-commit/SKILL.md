@@ -7,43 +7,53 @@ description: 'Use when user asks to commit changes, create a git commit'
 
 ## Context
 
-### Current git status (includes branch and untracked files)
 <git-status>
-!`git status`
+!`git status --porcelain --branch`
 </git-status>
 
-### Staged and unstaged changes
-<git-diff>
-!`git diff HEAD`
-</git-diff>
+<git-diff-stat>
+!`git diff --stat HEAD 2>/dev/null`
+</git-diff-stat>
 
-## Your task
+## Diff strategy
 
-Analyze the diff and git status, then stage and commit changes directly — no confirmation, no extra text output.
+Read the **last line** of `<git-diff-stat>` for total insertions/deletions. Then:
+
+| Condition | Action |
+|---|---|
+| **≤ 800 lines changed** | `git diff HEAD` — read full diff |
+| **> 800 lines changed** | Stat + status is enough. Only `git diff HEAD -- <file>` on ambiguous files |
+| **All deletions** (status shows only ` D` or `D `) | No diff needed — file names tell the story |
+| **Only untracked files** (not in stat) | Only `cat` small/ambiguous ones; clear names need no reading |
+| **Binary files** | Skip diff, note in commit message |
+
+When splitting into multiple commits and total > 800 lines, `git diff HEAD -- <group-of-files>` per logical group instead of full diff.
+
+## Stage and commit
 
 1. **Nothing to commit** → inform user, stop
-2. **Secrets detected** (.env, credentials.json, private keys) → skip those files, warn user
+2. **Secrets** (.env, credentials, private keys, tokens) → skip, warn user
 3. **Single logical unit** → one commit
-4. **Multiple logical units** → autonomously split into multiple commits with semantic grouping
-5. **Untracked files** (in status but not in diff) → review filenames, stage appropriate ones
-6. Stage with `git add <specific-files>` (never `git add -A` or `git add .`)
+4. **Multiple logical units** → split into multiple commits with semantic grouping
+5. **Untracked files** → review names, stage appropriate ones
+6. `git add <specific-files>` only (never `git add -A` or `git add .`)
 
-## Commit message format
+## Commit message
 
-- **Convention**: Conventional Commits — `feat:`, `fix:`, `chore:`, `refactor:`, `test:`, `docs:`, etc.
-- **Language**: Type prefix and scope in English, description in Chinese (e.g. `feat(auth): 添加用户登录功能`)
-- **HEREDOC**: Always use HEREDOC for correct multi-line handling:
+- Conventional Commits: `feat:`, `fix:`, `chore:`, `refactor:`, `test:`, `docs:`, etc.
+- Type/scope in English, description in Chinese: `feat(auth): 添加用户登录功能`
+- 10+ files → add body listing key changes
+- Always HEREDOC:
   ```bash
   git commit -m "$(cat <<'EOF'
-  feat(scope): 描述
+  type(scope): 描述
+
+  - 变更说明
   EOF
   )"
   ```
 
-## Git safety
+## Safety
 
-- **NEVER** force push to main/master
-- **NEVER** skip hooks (--no-verify) unless user explicitly asks
-- **NEVER** run destructive commands (--force, reset --hard) without explicit request
-- **NEVER** update git config
-- Hook failure → fix the issue, then create a **NEW** commit (never amend)
+- **NEVER** force push, skip hooks, run destructive commands, or update git config without explicit request
+- Hook failure → fix issue, create **NEW** commit (never amend)
