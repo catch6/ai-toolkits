@@ -15,6 +15,11 @@ description: 'Use when user asks to commit changes, create a git commit'
 !`git diff --stat HEAD 2>/dev/null`
 </git-diff-stat>
 
+<git-log>
+!`git log --oneline -5`
+</git-log>
+
+
 ## Diff strategy
 
 Read the **last line** of `<git-diff-stat>` for total insertions/deletions. Then:
