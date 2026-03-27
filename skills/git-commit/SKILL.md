@@ -37,11 +37,10 @@ When splitting into multiple commits and total > 800 lines, `git diff HEAD -- <g
 ## Stage and commit
 
 1. **Nothing to commit** → inform user, stop
-2. **Secrets** (.env, credentials, private keys, tokens) → skip, warn user
-3. **Single logical unit** → one commit
-4. **Multiple logical units** → split into multiple commits with semantic grouping
-5. **Untracked files** → review names, stage appropriate ones
-6. `git add <specific-files>` only (never `git add -A` or `git add .`)
+2. **Single logical unit** → one commit
+3. **Multiple logical units** → split into multiple commits with semantic grouping
+4. **Untracked files** → review names, stage appropriate ones
+5. `git add <specific-files>` only (never `git add -A` or `git add .`)
 
 ## Commit message
 
