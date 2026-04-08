@@ -12,11 +12,11 @@ description: 'Use when user asks to commit changes, create a git commit'
 </git-status>
 
 <git-diff-stat>
-!`git diff --stat HEAD 2>/dev/null`
+!`git diff --stat HEAD 2>/dev/null || echo "(no commits yet — all files are new)"`
 </git-diff-stat>
 
 <git-log>
-!`git log --oneline -5`
+!`git log --oneline -5 2>/dev/null || echo "(no commits yet)"`
 </git-log>
 
 
@@ -28,6 +28,7 @@ Read the **last line** of `<git-diff-stat>` for total insertions/deletions. Then
 |---|---|
 | **≤ 800 lines changed** | `git diff HEAD` — read full diff |
 | **> 800 lines changed** | Stat + status is enough. Only `git diff HEAD -- <file>` on ambiguous files |
+| **No commits yet** (`git-diff-stat` shows "no commits yet") | Treat all files as new; use `git diff --cached --stat` after staging to assess size |
 | **All deletions** (status shows only ` D` or `D `) | No diff needed — file names tell the story |
 | **Only untracked files** (not in stat) | Only `cat` small/ambiguous ones; clear names need no reading |
 | **Binary files** | Skip diff, note in commit message |
