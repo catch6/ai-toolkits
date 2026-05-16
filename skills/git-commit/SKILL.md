@@ -29,14 +29,12 @@ description: 'Use when user asks to commit changes, create a git commit'
 
 Read the **last line** of `<git-diff-stat>` for total insertions/deletions. Then:
 
-| Condition                                                   | Action                                                                              |
-| ----------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| **≤ 800 lines changed**                                     | `git diff HEAD` — read full diff                                                    |
-| **> 800 lines changed**                                     | Stat + status is enough. Only `git diff HEAD -- <file>` on ambiguous files          |
-| **No commits yet** (`git-diff-stat` shows "no commits yet") | Treat all files as new; use `git diff --cached --stat` after staging to assess size |
-| **All deletions** (status shows only ` D` or `D `)          | No diff needed — file names tell the story                                          |
-| **Only untracked files** (not in stat)                      | Only `cat` small/ambiguous ones; clear names need no reading                        |
-| **Binary files**                                            | Skip diff, note in commit message                                                   |
+- **≤ 800 lines changed** → `git diff HEAD` — read full diff
+- **> 800 lines changed** → Stat + status is enough. Only `git diff HEAD -- <file>` on ambiguous files
+- **No commits yet** (`git-diff-stat` shows "no commits yet") → Treat all files as new; use `git diff --cached --stat` after staging to assess size
+- **All deletions** (status shows only ` D` or `D `) → No diff needed — file names tell the story
+- **Only untracked files** (not in stat) → Only `cat` small/ambiguous ones; clear names need no reading
+- **Binary files** → Skip diff, note in commit message
 
 When splitting into multiple commits and total > 800 lines, `git diff HEAD -- <group-of-files>` per logical group instead of full diff.
 
@@ -45,8 +43,7 @@ When splitting into multiple commits and total > 800 lines, `git diff HEAD -- <g
 1. **Nothing to commit** → inform user, stop
 2. **Single logical unit** → one commit
 3. **Multiple logical units** → split into multiple commits with semantic grouping
-4. **Untracked files** → review names, stage appropriate ones
-5. `git add <specific-files>` only (never `git add -A` or `git add .`)
+4. **Untracked files / No commits yet** → proactively group logically, directly `git add <group>` + `git commit`, no need to wait for user confirmation
 
 ## Commit message
 
