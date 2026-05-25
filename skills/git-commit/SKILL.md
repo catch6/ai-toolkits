@@ -45,6 +45,16 @@ When splitting into multiple commits and total > 800 lines, `git diff HEAD -- <g
 3. **Multiple logical units** → split into multiple commits with semantic grouping
 4. **Untracked files / No commits yet** → proactively group logically, directly `git add <group>` + `git commit`, no need to wait for user confirmation
 
+## AI Co-Author Tag
+
+If the content of this commit was generated with AI assistance (regardless of the proportion), you **MUST** append the corresponding Co-Authored-By trailer at the end of the commit message.
+
+For example:
+
+- Co-Authored-By: ClaudeCode noreply@anthropic.com
+- Co-Authored-By: OpenCode noreply@opencode.ai
+- Co-Authored-By: KiloCode noreply@kilo.ai
+
 ## Commit message
 
 - Conventional Commits: `feat:`, `fix:`, `chore:`, `refactor:`, `test:`, `docs:`, etc.
@@ -57,6 +67,8 @@ When splitting into multiple commits and total > 800 lines, `git diff HEAD -- <g
   type(scope): 描述
 
   - 变更说明
+
+  Co-Authored-By: ClaudeCode noreply@anthropic.com
   EOF
   )"
   ```
