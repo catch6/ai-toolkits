@@ -45,22 +45,20 @@ When splitting into multiple commits and total > 800 lines, `git diff HEAD -- <g
 3. **Multiple logical units** → split into multiple commits with semantic grouping
 4. **Untracked files / No commits yet** → proactively group logically, directly `git add <group>` + `git commit`, no need to wait for user confirmation
 
-## AI Co-Author Tag
-
-If the content of this commit was generated with AI assistance (regardless of the proportion), you **MUST** append the corresponding Co-Authored-By trailer at the end of the commit message.
-
-For example:
-
-- Co-Authored-By: ClaudeCode noreply@anthropic.com
-- Co-Authored-By: OpenCode noreply@opencode.ai
-- Co-Authored-By: KiloCode noreply@kilo.ai
-
 ## Commit message
 
 - Conventional Commits: `feat:`, `fix:`, `chore:`, `refactor:`, `test:`, `docs:`, etc.
 - Type/scope in English, description in Chinese: `feat(auth): 添加用户登录功能`
 - 10+ files → add body listing key changes
-- Always HEREDOC:
+- **Every commit MUST end with a Co-Authored-By trailer** — match current agent:
+
+  | Agent       | Trailer                                            |
+  | ----------- | -------------------------------------------------- |
+  | Claude Code | `Co-Authored-By: ClaudeCode noreply@anthropic.com` |
+  | OpenCode    | `Co-Authored-By: OpenCode noreply@opencode.ai`     |
+  | KiloCode    | `Co-Authored-By: KiloCode noreply@kilo.ai`         |
+
+- Always HEREDOC (trailer is **inside** the heredoc, not outside):
 
   ```bash
   git commit -m "$(cat <<'EOF'
@@ -68,7 +66,7 @@ For example:
 
   - 变更说明
 
-  Co-Authored-By: ClaudeCode noreply@anthropic.com
+  Co-Authored-By: OpenCode noreply@opencode.ai
   EOF
   )"
   ```
